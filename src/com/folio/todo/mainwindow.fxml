@@ -1,0 +1,10 @@
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:controller="com.folio.todo.Controller"
+            xmlns:fx="http://javafx.com/fxml">
+    <left>
+        <ListView>
+
+        </ListView>
+    </left>
+</BorderPane>
