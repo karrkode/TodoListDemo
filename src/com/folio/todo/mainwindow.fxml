@@ -1,16 +1,34 @@
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <BorderPane fx:controller="com.folio.todo.Controller"
             xmlns:fx="http://javafx.com/fxml">
     <left>
-        <ListView fx:id="todoListView" onMouseClicked="#handleClickListView">
+        <ListView fx:id="todoListView">
 
         </ListView>
     </left>
     <center>
-        <TextArea fx:id="textAreaView">
+        <VBox style="-fx-background-color:white">
+            <TextArea fx:id="textAreaView" VBox.vgrow="ALWAYS">
 
-        </TextArea>
+            </TextArea>
+            <HBox>
+                <Label text="Due: " style="-fx-background-color:white;">
+                    <font>
+                        <Font name="Times New Roman bold" size="20"/>
+                    </font>
+                </Label>
+                <Label fx:id="labelDueDate" style="-fx-background-color:white">
+                    <font>
+                        <Font name="Times new Roman bold" size="20"/>
+                    </font>
+                </Label>
+            </HBox>
+        </VBox>
     </center>
 </BorderPane>

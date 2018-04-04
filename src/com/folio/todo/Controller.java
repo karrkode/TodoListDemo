@@ -1,6 +1,9 @@
 package com.folio.todo;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
@@ -20,6 +23,10 @@ public class Controller {
     @FXML
     private TextArea textAreaView;
 
+    @FXML
+    private Label labelDueDate;
+
+
     public void initialize() {
         TodoItem item1 = new TodoItem("Email Ben","You met him at DNC Fundraiser", LocalDate.of(2018, Month.MAY,20));
         TodoItem item2 = new TodoItem("Email Sarah","She is wanting to do vollunteer work at Lincoln Park Community Shelter", LocalDate.of(2018, Month.APRIL,20));
@@ -30,19 +37,27 @@ public class Controller {
         todoItems.add(item2);
         todoItems.add(item3);
 
+        todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
+            @Override
+            public void changed(ObservableValue<? extends TodoItem> observable, TodoItem oldValue, TodoItem newValue) {
+                if(newValue != null) {
+                    TodoItem item = todoListView.getSelectionModel().getSelectedItem();
+                    textAreaView.setText(item.getDetails());
+                    labelDueDate.setText(item.getDeadline().toString());
+                }
+            }
+        });
+
         todoListView.getItems().setAll(todoItems);
         todoListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        todoListView.getSelectionModel().selectFirst();
     }
 
     @FXML
     public void handleClickListView() {
         TodoItem item = todoListView.getSelectionModel().getSelectedItem();
-//        System.out.println(item.toString());
-//        textAreaView.setText(item.getDetails());
-        StringBuilder sb = new StringBuilder(item.getDetails());
-        sb.append("\n\n\n\n");
-        sb.append("Due Date" + item.getDeadline().toString());
-        textAreaView.setText(sb.toString());
+        textAreaView.setText(item.getDetails());
+        labelDueDate.setText(item.getDeadline().toString());
     }
 
 }
